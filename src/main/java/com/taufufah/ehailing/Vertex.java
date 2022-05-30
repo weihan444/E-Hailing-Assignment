@@ -16,6 +16,7 @@ public class Vertex {
     private Long id;
 
     private double longitude;
+
     private double latitude;
 
     public Vertex(double longitude, double latitude) {
@@ -30,7 +31,16 @@ public class Vertex {
         if (vertexAndDist == null) {
             vertexAndDist = new HashSet<>();
         }
-        vertexAndDist.add(new Distance(this, nextVertex));
+        double x1 = longitude;
+        double y1 = latitude;
+        double x2 = nextVertex.longitude;
+        double y2 = nextVertex.latitude;
+        double distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+        vertexAndDist.add(new Distance(distance, nextVertex));
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public double getLongitude() {
