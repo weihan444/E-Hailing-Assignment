@@ -92,11 +92,11 @@ public class Customer {
         this.curr_longitude = curr_longitude;
     }
 
-    public Double getcurr_latitude() {
+    public Double getCurr_latitude() {
         return curr_latitude;
     }
 
-    public void setcurr_latitude(Double curr_latitude) {
+    public void setCurr_latitude(Double curr_latitude) {
         this.curr_latitude = curr_latitude;
     }
 
