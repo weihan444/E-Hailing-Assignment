@@ -75,7 +75,7 @@ public class Driver {
         return customer;
     }
 
-    public Double getLatitidue() {
+    public Double getLatitude() {
         return latitude;
     }
 

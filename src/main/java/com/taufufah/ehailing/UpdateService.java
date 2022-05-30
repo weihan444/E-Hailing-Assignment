@@ -19,7 +19,7 @@ public class UpdateService {
     private final DriverRepository driverRepository;
     private final VertexRepository vertexRepository;
     private final CustomerRepository customerRepository;
-    private List<Pair> shortestPath = new ArrayList<>();
+    private List<Path> shortestPathList = new ArrayList<>();
     private final Logger logger = LoggerFactory.getLogger(UpdateService.class);
 
     public UpdateService(Neo4jClient neo4jClient, DriverRepository driverRepository, VertexRepository vertexRepository,
@@ -38,48 +38,131 @@ public class UpdateService {
         for (Map<String, Object> row : results) {
             List<Node> path = (List<Node>) row.get("p");
             List<Relationship> distance = (List<Relationship>) row.get("d");
-            shortestPath.add(new Pair(new ArrayList<>(path), new ArrayList<>(distance)));
+            shortestPathList.add(new Path(new ArrayList<>(path), new ArrayList<>(distance)));
         }
-
     }
 
-    public List<Pair> getShortestPath() {
-        return shortestPath;
-    }
-
-    @Scheduled(fixedDelay = 1000)
+    @Scheduled(initialDelay = 1000, fixedDelay = 1000)
     public void updateDriver() {
-        logger.info(shortestPath.get(0).getPath() + "");
-        if (shortestPath.get(0).getPath().size() != shortestPath.get(0).getDistance().size()) {
-            shortestPath.get(0).getPath().remove(0);
+        for (Path shortestPath : shortestPathList) {
+            if (shortestPath.getPathList().size() > 0) {
+                shortestPath.decreaseDistance(0, 1.0);
+            }
+
+            Long driverId = shortestPath.getDriver().id();
+
+            Driver driver = driverRepository.findById(driverId).get();
+
+            if (shortestPath.getPathList().size() == 0) {
+                driverRepository.updateDriverLocation(driverId, driver.getCustomer().getCurr_longitude(),
+                        driver.getCustomer().getCurr_latitude());
+            } else {
+                driverRepository.updateDriverLocation(driverId, driver.getLongitude() + shortestPath.getxVel(),
+                        driver.getLatitude() + shortestPath.getyVel());
+            }
+
+            logger.info(shortestPath.getxVel() + "");
+            logger.info(shortestPath.getyVel() + "");
+            // logger.info(shortestPath.get(0).getPathList() + "");
+            logger.info("x:" + driver.getLongitude() + " y:" + driver.getLatitude());
         }
     }
 
+    public List<Path> getShortestPathList() {
+        return shortestPathList;
+    }
 }
 
-class Pair {
-    private List<Node> path;
-    private List<Relationship> distance;
+class Path {
+    private Node driver;
+    private List<Node> pathList;
+    private List<Relationship> distanceList;
+    private List<Double> distanceLeft;
+    private Double xVel;
+    private Double yVel;
 
-    public Pair(List<Node> path, List<Relationship> distance) {
-        this.path = path;
-        this.distance = distance;
+    public Path(List<Node> path, List<Relationship> distance) {
+        this.driver = path.remove(0);
+        this.pathList = path;
+        this.distanceList = distance;
+        this.distanceLeft = new ArrayList<>();
+        this.xVel = (path.get(0).get("longitude").asDouble() - driver.get("longitude").asDouble()) / getDistance(0);
+        this.yVel = (path.get(0).get("latitude").asDouble() - driver.get("latitude").asDouble()) / getDistance(0);
+        for (int i = 0; i < distanceList.size(); i++) {
+            distanceLeft.add(getDistance(i));
+        }
     }
 
-    public List<Node> getPath() {
-        return path;
+    public Node getDriver() {
+        return driver;
     }
 
-    public void setPath(List<Node> path) {
-        this.path = path;
+    public List<Node> getPathList() {
+        return pathList;
     }
 
-    public List<Relationship> getDistance() {
-        return distance;
+    public void setPathList(List<Node> path) {
+        this.pathList = path;
     }
 
-    public void setDistance(List<Relationship> distance) {
-        this.distance = distance;
+    public List<Relationship> getDistanceList() {
+        return distanceList;
     }
 
+    public void setDistanceList(List<Relationship> distance) {
+        this.distanceList = distance;
+    }
+
+    public void setDistanceLeft(int index, Double distance) {
+        distanceLeft.set(index, distance);
+    }
+
+    public void decreaseDistance(int index, Double distance) {
+        setDistanceLeft(index, getDistanceLeft(index) - distance);
+        if (getDistanceLeft(0) < 0) {
+            if (pathList.size() == 2) {
+                this.xVel = (pathList.get(1).get("curr_longitude").asDouble()
+                        - pathList.get(0).get("longitude").asDouble())
+                        / getDistance(1);
+                this.yVel = (pathList.get(1).get("curr_latitude").asDouble()
+                        - pathList.get(0).get("latitude").asDouble())
+                        / getDistance(1);
+            } else if (pathList.size() > 2) {
+                this.xVel = (pathList.get(1).get("longitude").asDouble() - pathList.get(0).get("longitude").asDouble())
+                        / getDistance(1);
+                this.yVel = (pathList.get(1).get("latitude").asDouble() - pathList.get(0).get("latitude").asDouble())
+                        / getDistance(1);
+            } else {
+
+            }
+
+            pathList.remove(0);
+            distanceList.remove(0);
+            distanceLeft.remove(0);
+        }
+    }
+
+    public Double getDistance(int index) {
+        return distanceList.get(index).get("distance").asDouble();
+    }
+
+    public Double getDistanceLeft(int index) {
+        return distanceLeft.get(index);
+    }
+
+    public Double getxVel() {
+        return xVel;
+    }
+
+    public void setxVel(Double xVel) {
+        this.xVel = xVel;
+    }
+
+    public Double getyVel() {
+        return yVel;
+    }
+
+    public void setyVel(Double yVel) {
+        this.yVel = yVel;
+    }
 }
