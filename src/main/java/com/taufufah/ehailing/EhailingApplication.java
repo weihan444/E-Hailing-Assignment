@@ -40,11 +40,9 @@ public class EhailingApplication {
             c.connectesWith(b);
 
             Driver d1 = new Driver("Ali", 4, 23.0, 10.0);
-            Driver d2 = new Driver("Bii", 4, 23.0, 10.0);
-            Customer c1 = new Customer("Abu", LocalDateTime.now(), 4, 16.0, 16.0, 30.0, 30.0);
-            Customer c2 = new Customer("Jack", LocalDateTime.now(), 4, 50.0, 32.0, 60.0, 30.0);
-            d1.setCustomer(c1);
-            d2.setCustomer(c2);
+            Driver d2 = new Driver("Bii", 4, 30.0, 15.0);
+            Customer c1 = new Customer("Abu", LocalDateTime.now(), 4, 10.0, 10.0, 10.0, 10.0);
+            Customer c2 = new Customer("Jack", LocalDateTime.now(), 4, 50.0, 32.0, 10.0, 30.0);
             Destination dest1 = new Destination(c1.getDest_longitude(), c1.getDest_latitude());
             Destination dest2 = new Destination(c2.getDest_longitude(), c2.getDest_latitude());
 
@@ -60,30 +58,44 @@ public class EhailingApplication {
             destinationRepository.save(dest1);
             destinationRepository.save(dest2);
 
+            // C1 and C2 choose destination
+            customerRepository.updateDestination(c1.getId(), dest1.getId());
+            customerRepository.updateDestination(c2.getId(), dest2.getId());
+
+            // D1 Fetch C1
             destinationRepository.connectToClosestVertex(dest1.getId(),
                     vertexRepository.findClosestNodes(dest1.getLongitude(), dest1.getLatitude()).getId());
 
             driverRepository.connectToClosestVertex(d1.getId(),
                     vertexRepository.findClosestNodes(d1.getLongitude(), d1.getLatitude()).getId());
 
-            customerRepository.connectToClosestVertex(d1.getCustomer().getId(),
+            customerRepository.connectToClosestVertex(c1.getId(),
                     vertexRepository
-                            .findClosestNodes(d1.getCustomer().getCurr_longitude(), d1.getCustomer().getCurr_latitude())
+                            .findClosestNodes(c1.getLongitude(), c1.getLatitude())
                             .getId());
 
+            driverRepository.fetchCustomer(d1.getId(), c1.getId());
+            driverRepository.updateDriverStatus(d1.getId(), Status.NOT_AVAILABLE);
+            customerRepository.updateCustomerStatus(c1.getId(), Status.PENDING);
+
+            // D2 Fetch C2
             destinationRepository.connectToClosestVertex(dest2.getId(),
                     vertexRepository.findClosestNodes(dest2.getLongitude(), dest2.getLatitude()).getId());
 
             driverRepository.connectToClosestVertex(d2.getId(),
                     vertexRepository.findClosestNodes(d2.getLongitude(), d2.getLatitude()).getId());
 
-            customerRepository.connectToClosestVertex(d2.getCustomer().getId(),
+            customerRepository.connectToClosestVertex(c2.getId(),
                     vertexRepository
-                            .findClosestNodes(d2.getCustomer().getCurr_longitude(), d2.getCustomer().getCurr_latitude())
+                            .findClosestNodes(c2.getLongitude(), c2.getLatitude())
                             .getId());
 
-            updateService.findShortestPath(d1.getId(), d1.getCustomer().getId());
-            updateService.findShortestPath(d2.getId(), d2.getCustomer().getId());
+            driverRepository.fetchCustomer(d2.getId(), c2.getId());
+            driverRepository.updateDriverStatus(d2.getId(), Status.NOT_AVAILABLE);
+            customerRepository.updateCustomerStatus(d2.getId(), Status.PENDING);
+
+            updateService.findShortestPath(d1.getId(), c1.getId());
+            updateService.findShortestPath(d2.getId(), c2.getId());
         };
     }
 }

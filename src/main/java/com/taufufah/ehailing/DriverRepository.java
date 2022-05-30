@@ -1,7 +1,6 @@
 package com.taufufah.ehailing;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
@@ -15,4 +14,19 @@ public interface DriverRepository extends Neo4jRepository<Driver, Long> {
 
     @Query("MATCH (d:Driver) WHERE id(d) = $driverId set d.longitude = $longitude, d.latitude = $latitude")
     void updateDriverLocation(Long driverId, Double longitude, Double latitude);
+
+    @Query("MATCH (d:Driver) MATCH(c:Customer) WHERE id(d) = $driverId AND id(c) = $customerId CREATE (d)-[:FETCHING]->(c)")
+    void fetchCustomer(Long driverId, Long customerId);
+
+    @Query("MATCH (d:Driver) WHERE id(d) = $driverId SET d.status = $status")
+    void updateDriverStatus(Long driverId, Status status);
+
+    @Query("MATCH (d:Driver)-[r:FETCHING]->() WHERE id(d) = $driverId DELETE r")
+    void deleteFetching(Long driverId);
+
+    @Query("MATCH (d:Driver)-[r:CONNECTED_VERTEX]->() WHERE id(d) = $driverId DELETE r")
+    void deleteConnectedVertex(Long driverId);
+
+    @Query("MATCH (n:Driver)-[r:FETCHING]->(m) WHERE id(m) = $customerId return n LIMIT 1")
+    Driver findDriver(Long customerId);
 }

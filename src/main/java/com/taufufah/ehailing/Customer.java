@@ -21,9 +21,9 @@ public class Customer {
 
     private Integer capacity;
 
-    private Double curr_longitude;
+    private Double longitude;
 
-    private Double curr_latitude;
+    private Double latitude;
 
     private Double dest_longitude;
 
@@ -32,20 +32,31 @@ public class Customer {
     @Relationship(type = "CONNECTED_VERTEX")
     private Vertex vertex;
 
-    public Customer(String name, LocalDateTime expected_arrival_time, Integer capacity, Double curr_longitude,
-            Double curr_latitude, Double dest_longitude, Double dest_latitude) {
+    @Relationship(type = "GOING_TO")
+    private Destination destination;
+
+    public Customer(String name, LocalDateTime expected_arrival_time, Integer capacity, Double longitude,
+            Double latitude, Double dest_longitude, Double dest_latitude) {
         this.name = name;
-        this.status = Status.WAITING;
+        this.status = Status.PENDING;
         this.expected_arrival_time = expected_arrival_time;
         this.capacity = capacity;
-        this.curr_longitude = curr_longitude;
-        this.curr_latitude = curr_latitude;
+        this.longitude = longitude;
+        this.latitude = latitude;
         this.dest_longitude = dest_longitude;
         this.dest_latitude = dest_latitude;
     }
 
     public Vertex getVertex() {
         return vertex;
+    }
+
+    public Destination getDestination() {
+        return destination;
+    }
+
+    public void setDestination(Destination destination) {
+        this.destination = destination;
     }
 
     public Long getId() {
@@ -84,20 +95,20 @@ public class Customer {
         this.capacity = capacity;
     }
 
-    public Double getCurr_longitude() {
-        return curr_longitude;
+    public Double getLongitude() {
+        return longitude;
     }
 
-    public void setCurr_longitude(Double curr_longitude) {
-        this.curr_longitude = curr_longitude;
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
-    public Double getCurr_latitude() {
-        return curr_latitude;
+    public Double getLatitude() {
+        return latitude;
     }
 
-    public void setCurr_latitude(Double curr_latitude) {
-        this.curr_latitude = curr_latitude;
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
 
     public Double getDest_longitude() {
