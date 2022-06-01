@@ -8,6 +8,7 @@ import java.util.Map;
 import com.taufufah.ehailing.model.Driver;
 import com.taufufah.ehailing.model.Status;
 import com.taufufah.ehailing.repository.CustomerRepository;
+import com.taufufah.ehailing.repository.DestinationRepository;
 import com.taufufah.ehailing.repository.DriverRepository;
 import com.taufufah.ehailing.repository.VertexRepository;
 
@@ -25,15 +26,17 @@ public class UpdateService {
     private final DriverRepository driverRepository;
     private final VertexRepository vertexRepository;
     private final CustomerRepository customerRepository;
+    private final DestinationRepository destinationRepository;
     private List<Path> shortestPathList = new ArrayList<>();
     private final Logger logger = LoggerFactory.getLogger(UpdateService.class);
 
     public UpdateService(Neo4jClient neo4jClient, DriverRepository driverRepository, VertexRepository vertexRepository,
-            CustomerRepository customerRepository) {
+            CustomerRepository customerRepository, DestinationRepository destinationRepository) {
         this.neo4jClient = neo4jClient;
         this.driverRepository = driverRepository;
         this.vertexRepository = vertexRepository;
         this.customerRepository = customerRepository;
+        this.destinationRepository = destinationRepository;
     }
 
     public void findShortestPath(Long node1Id, Long node2Id) {
@@ -77,6 +80,7 @@ public class UpdateService {
                             driver.getCustomer().getDestination().getLongitude(),
                             driver.getCustomer().getDestination().getLatitude());
                     customerRepository.updateCustomerStatus(driver.getCustomer().getId(), Status.REACHED);
+                    destinationRepository.delete(driver.getCustomer().getDestination());
                     driverRepository.updateDriverStatus(driverId, Status.AVAILABLE);
                     driverRepository.deleteFetching(driverId);
                     driverRepository.deleteConnectedVertex(driverId);
