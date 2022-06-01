@@ -51,10 +51,6 @@ public class UpdateService {
     @Scheduled(initialDelay = 1000, fixedDelay = 1000)
     public void updateDriver() {
         for (Path shortestPath : shortestPathList) {
-            if (shortestPath.getPathList().size() > 0) {
-                shortestPath.decreaseDistance(0, 1.0);
-            }
-
             Long driverId = null;
 
             if (shortestPath.getDriver().labels().toString().equals("[Customer]")) {
@@ -66,7 +62,9 @@ public class UpdateService {
 
             Driver driver = driverRepository.findById(driverId).get();
 
-            if (shortestPath.getPathList().size() == 0) {
+            if (shortestPath.getPathList().size() > 0) {
+                shortestPath.decreaseDistance(0, 5.0, driver);
+            } else if (shortestPath.getPathList().size() == 0) {
                 shortestPathList.remove(shortestPath);
                 if (driver.getCustomer().getStatus().equals(Status.PENDING)) {
                     driverRepository.updateDriverLocation(driverId,
@@ -86,10 +84,8 @@ public class UpdateService {
                             vertexRepository.findClosestNodes(driver.getLongitude(), driver.getLatitude()).getId());
                 }
 
-            } else {
-                driverRepository.updateDriverLocation(driverId, driver.getLongitude() + shortestPath.getxVel(),
-                        driver.getLatitude() + shortestPath.getyVel());
             }
+
             logger.info(driver.getName());
             logger.info("Distance Left: " + shortestPath.getDistanceLeft(0));
             logger.info(shortestPath.getxVel() + " " + shortestPath.getyVel());
@@ -114,8 +110,9 @@ public class UpdateService {
             this.pathList = path;
             this.distanceList = distance;
             this.distanceLeft = new ArrayList<>();
-            this.xVel = (path.get(0).get("longitude").asDouble() - from.get("longitude").asDouble()) / getDistance(0);
-            this.yVel = (path.get(0).get("latitude").asDouble() - from.get("latitude").asDouble()) / getDistance(0);
+            this.xVel = (path.get(0).get("longitude").asDouble() - from.get("longitude").asDouble()) / getDistance(0)
+                    * 5;
+            this.yVel = (path.get(0).get("latitude").asDouble() - from.get("latitude").asDouble()) / getDistance(0) * 5;
             for (int i = 0; i < distanceList.size(); i++) {
                 distanceLeft.add(getDistance(i));
             }
@@ -145,20 +142,25 @@ public class UpdateService {
             distanceLeft.set(index, distance);
         }
 
-        public void decreaseDistance(int index, Double distance) {
+        public void decreaseDistance(int index, Double distance, Driver driver) {
             setDistanceLeft(index, getDistanceLeft(index) - distance);
             if (getDistanceLeft(0) < 0) {
+                driverRepository.updateDriverLocation(driver.getId(), pathList.get(0).get("longitude").asDouble(),
+                        pathList.get(0).get("latitude").asDouble());
                 if (pathList.size() > 1) {
                     this.xVel = (pathList.get(1).get("longitude").asDouble()
                             - pathList.get(0).get("longitude").asDouble())
-                            / getDistance(1);
+                            / getDistance(1) * 5;
                     this.yVel = (pathList.get(1).get("latitude").asDouble()
                             - pathList.get(0).get("latitude").asDouble())
-                            / getDistance(1);
+                            / getDistance(1) * 5;
                 }
                 pathList.remove(0);
                 distanceList.remove(0);
                 distanceLeft.remove(0);
+            } else {
+                driverRepository.updateDriverLocation(driver.getId(), driver.getLongitude() + getxVel(),
+                        driver.getLatitude() + getyVel());
             }
         }
 

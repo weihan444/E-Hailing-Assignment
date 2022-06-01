@@ -52,7 +52,7 @@ public class EhailingApplication {
 
             Driver d1 = new Driver("Ali", 4, 23.0, 10.0);
             Driver d2 = new Driver("Bii", 4, 30.0, 15.0);
-            Customer c1 = new Customer("Abu", LocalDateTime.now(), 4, 10.0, 10.0, 10.0, 10.0);
+            Customer c1 = new Customer("Abu", LocalDateTime.now(), 4, 10.0, 10.0, 16.0, 10.0);
             Customer c2 = new Customer("Jack", LocalDateTime.now(), 4, 50.0, 32.0, 10.0, 30.0);
             Destination dest1 = new Destination(c1.getDest_longitude(), c1.getDest_latitude());
             Destination dest2 = new Destination(c2.getDest_longitude(), c2.getDest_latitude());
