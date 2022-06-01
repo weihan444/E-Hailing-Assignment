@@ -1,4 +1,4 @@
-package com.taufufah.ehailing;
+package com.taufufah.ehailing.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;

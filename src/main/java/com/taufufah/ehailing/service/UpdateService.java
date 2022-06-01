@@ -1,9 +1,15 @@
-package com.taufufah.ehailing;
+package com.taufufah.ehailing.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
+import com.taufufah.ehailing.model.Driver;
+import com.taufufah.ehailing.model.Status;
+import com.taufufah.ehailing.repository.CustomerRepository;
+import com.taufufah.ehailing.repository.DriverRepository;
+import com.taufufah.ehailing.repository.VertexRepository;
 
 import org.neo4j.driver.types.Node;
 import org.neo4j.driver.types.Relationship;
@@ -53,8 +59,7 @@ public class UpdateService {
 
             if (shortestPath.getDriver().labels().toString().equals("[Customer]")) {
                 Long customerId = shortestPath.getDriver().id();
-                logger.info(customerId + "");
-                driverId = driverRepository.findDriver(customerId).getId();
+                driverId = driverRepository.findDriverByCustomer(customerId).getId();
             } else {
                 driverId = shortestPath.getDriver().id();
             }
@@ -97,7 +102,7 @@ public class UpdateService {
     }
 
     class Path {
-        private Node driver;
+        private Node from;
         private List<Node> pathList;
         private List<Relationship> distanceList;
         private List<Double> distanceLeft;
@@ -105,19 +110,19 @@ public class UpdateService {
         private Double yVel;
 
         public Path(List<Node> path, List<Relationship> distance) {
-            this.driver = path.remove(0);
+            this.from = path.remove(0);
             this.pathList = path;
             this.distanceList = distance;
             this.distanceLeft = new ArrayList<>();
-            this.xVel = (path.get(0).get("longitude").asDouble() - driver.get("longitude").asDouble()) / getDistance(0);
-            this.yVel = (path.get(0).get("latitude").asDouble() - driver.get("latitude").asDouble()) / getDistance(0);
+            this.xVel = (path.get(0).get("longitude").asDouble() - from.get("longitude").asDouble()) / getDistance(0);
+            this.yVel = (path.get(0).get("latitude").asDouble() - from.get("latitude").asDouble()) / getDistance(0);
             for (int i = 0; i < distanceList.size(); i++) {
                 distanceLeft.add(getDistance(i));
             }
         }
 
         public Node getDriver() {
-            return driver;
+            return from;
         }
 
         public List<Node> getPathList() {

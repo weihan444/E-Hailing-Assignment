@@ -1,4 +1,4 @@
-package com.taufufah.ehailing;
+package com.taufufah.ehailing.model;
 
 import org.springframework.data.neo4j.core.schema.RelationshipId;
 import org.springframework.data.neo4j.core.schema.RelationshipProperties;
