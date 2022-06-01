@@ -1,4 +1,4 @@
-package com.taufufah.ehailing;
+package com.taufufah.ehailing.model;
 
 public enum Status {
     AVAILABLE,

@@ -1,4 +1,4 @@
-package com.taufufah.ehailing;
+package com.taufufah.ehailing.model;
 
 import java.util.HashSet;
 import java.util.Set;

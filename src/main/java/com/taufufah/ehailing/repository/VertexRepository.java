@@ -1,4 +1,6 @@
-package com.taufufah.ehailing;
+package com.taufufah.ehailing.repository;
+
+import com.taufufah.ehailing.model.Vertex;
 
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
