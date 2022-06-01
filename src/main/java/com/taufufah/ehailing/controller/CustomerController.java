@@ -11,6 +11,7 @@ import com.taufufah.ehailing.repository.CustomerRepository;
 import com.taufufah.ehailing.repository.DestinationRepository;
 import com.taufufah.ehailing.repository.VertexRepository;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,12 +49,21 @@ public class CustomerController {
     }
 
     @PutMapping("/customers/{id}/updateStatus")
-    Customer updateDriverStatus(@RequestBody Customer customer, @PathVariable Long id) {
+    Customer updateCustomerStatus(@RequestBody Customer customer, @PathVariable Long id) {
         return customerRepository.updateCustomerStatus(id, customer.getStatus());
     }
 
+    @PutMapping("/customers/{id}/updateDestination")
+    Customer updateCustomerDestination(@RequestBody Destination destination, @PathVariable Long id) {
+        Destination lastDest = customerRepository.findById(id).get().getDestination();
+        destinationRepository.deleteById(lastDest.getId());
+
+        Long destId = destinationRepository.save(destination).getId();
+        return customerRepository.updateDestination(id, destId);
+    }
+
     @PostMapping("/customers")
-    Customer newDriver(@RequestBody Customer newCustomer) {
+    Customer newCustomer(@RequestBody Customer newCustomer) {
         Long customerId = customerRepository.save(newCustomer).getId();
         Vertex closestToCustomer = vertexRepository.findClosestNodes(newCustomer.getLongitude(),
                 newCustomer.getLatitude());
@@ -64,7 +74,12 @@ public class CustomerController {
                 destination.getLatitude());
 
         destinationRepository.connectToClosestVertex(destId, closestToDestination.getId());
+        customerRepository.updateDestination(customerId, destId);
         return customerRepository.connectToClosestVertex(customerId, closestToCustomer.getId());
     }
 
+    @DeleteMapping("/customers/{id}")
+    void deleteCustomer(@PathVariable Long id) {
+        customerRepository.deleteById(id);
+    }
 }

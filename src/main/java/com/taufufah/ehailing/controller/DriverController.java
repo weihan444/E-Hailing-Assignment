@@ -62,7 +62,13 @@ public class DriverController {
 
     @PutMapping("/drivers/{driverId}/fetch/{customerId}")
     Driver fetchCustomer(@PathVariable Long driverId, @PathVariable Long customerId) {
+        driverRepository.deleteFetching(driverId);
         return driverRepository.fetchCustomer(driverId, customerId);
+    }
+
+    @DeleteMapping("/drivers/{id}")
+    void deleteDriver(@PathVariable Long id) {
+        driverRepository.deleteById(id);
     }
 
     @DeleteMapping("/drivers/{id}/removeFetching")
