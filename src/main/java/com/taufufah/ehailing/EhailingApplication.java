@@ -105,8 +105,8 @@ public class EhailingApplication {
             driverRepository.updateDriverStatus(d2.getId(), Status.NOT_AVAILABLE);
             customerRepository.updateCustomerStatus(d2.getId(), Status.PENDING);
 
-            updateService.findShortestPath(d1.getId(), c1.getId());
-            updateService.findShortestPath(d2.getId(), c2.getId());
+            // updateService.findShortestPath(d1.getId(), c1.getId());
+            // updateService.findShortestPath(d2.getId(), c2.getId());
         };
     }
 }
