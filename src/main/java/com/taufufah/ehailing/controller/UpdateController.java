@@ -3,6 +3,7 @@ package com.taufufah.ehailing.controller;
 import com.taufufah.ehailing.dto.DriverCustomerDto;
 import com.taufufah.ehailing.service.UpdateService;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,11 @@ public class UpdateController {
 
     public UpdateController(UpdateService updateService) {
         this.updateService = updateService;
+    }
+
+    @GetMapping("/distance")
+    Integer getShortestPathTime(@RequestBody DriverCustomerDto driverCustomer) {
+        return updateService.findShortestTime(driverCustomer.getDriverId(), driverCustomer.getCustomerId());
     }
 
     @PostMapping("/update")

@@ -1,9 +1,13 @@
 package com.taufufah.ehailing.controller;
 
+import com.taufufah.ehailing.exceptions.CustomerNotFoundException;
 import com.taufufah.ehailing.exceptions.DriverNotFoundException;
+import com.taufufah.ehailing.exceptions.NotEnoughCapacity;
+import com.taufufah.ehailing.model.Customer;
 import com.taufufah.ehailing.model.Driver;
 import com.taufufah.ehailing.model.Status;
 import com.taufufah.ehailing.model.Vertex;
+import com.taufufah.ehailing.repository.CustomerRepository;
 import com.taufufah.ehailing.repository.DriverRepository;
 import com.taufufah.ehailing.repository.VertexRepository;
 
@@ -20,11 +24,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DriverController {
     private final DriverRepository driverRepository;
+    private final CustomerRepository customerRepository;
     private final VertexRepository vertexRepository;
 
-    public DriverController(DriverRepository driverRepository, VertexRepository vertexRepository) {
+    public DriverController(DriverRepository driverRepository, VertexRepository vertexRepository,
+            CustomerRepository customerRepository) {
         this.driverRepository = driverRepository;
         this.vertexRepository = vertexRepository;
+        this.customerRepository = customerRepository;
     }
 
     @GetMapping("/drivers")
@@ -62,6 +69,14 @@ public class DriverController {
 
     @PutMapping("/drivers/{driverId}/fetch/{customerId}")
     Driver fetchCustomer(@PathVariable Long driverId, @PathVariable Long customerId) {
+        Driver driver = driverRepository.findById(driverId).orElseThrow(() -> new DriverNotFoundException(driverId));
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new CustomerNotFoundException(customerId));
+
+        if (driver.getCapacity() < customer.getCapacity()) {
+            throw new NotEnoughCapacity(driver.getCapacity(), customer.getCapacity());
+        }
+
         driverRepository.deleteFetching(driverId);
         return driverRepository.fetchCustomer(driverId, customerId);
     }

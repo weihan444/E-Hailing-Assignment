@@ -5,6 +5,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import com.taufufah.ehailing.exceptions.CustomerNotFoundException;
+import com.taufufah.ehailing.model.Customer;
+import com.taufufah.ehailing.model.Distance;
 import com.taufufah.ehailing.model.Driver;
 import com.taufufah.ehailing.model.Status;
 import com.taufufah.ehailing.repository.CustomerRepository;
@@ -51,6 +54,45 @@ public class UpdateService {
         }
     }
 
+    public Integer findShortestTime(Long driverId, Long customerId) {
+        Collection<Map<String, Object>> results = neo4jClient.query(
+                "MATCH (n) MATCH (m) MATCH path = shortestPath((n)-[:CONNECTED_VERTEX*..50]-(m)) WHERE Id(n) = $node1Id AND Id(m) = $node2Id return relationships(path) as d")
+                .bindAll(Map.of("node1Id", driverId, "node2Id", customerId)).fetch().all();
+
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new CustomerNotFoundException(customerId));
+
+        Collection<Map<String, Object>> resultsDest = neo4jClient.query(
+                "MATCH (n) MATCH (m) MATCH path = shortestPath((n)-[:CONNECTED_VERTEX*..50]-(m)) WHERE Id(n) = $node1Id AND Id(m) = $node2Id return relationships(path) as d")
+                .bindAll(Map.of("node1Id", customerId, "node2Id", customer.getDestination().getId())).fetch().all();
+
+        Integer time = 0;
+
+        for (Map<String, Object> result : results) {
+            List<Relationship> paths = (List<Relationship>) result.get("d");
+            for (Relationship path : paths) {
+                Double distance = path.get("distance").asDouble();
+                while (distance > 0) {
+                    distance -= 5;
+                    time++;
+                }
+            }
+        }
+
+        for (Map<String, Object> result : resultsDest) {
+            List<Relationship> paths = (List<Relationship>) result.get("d");
+            for (Relationship path : paths) {
+                Double distance = path.get("distance").asDouble();
+                while (distance > 0) {
+                    distance -= 5;
+                    time++;
+                }
+            }
+        }
+
+        return time;
+    }
+
     @Scheduled(initialDelay = 1000, fixedDelay = 1000)
     public void updateDriver() {
         for (Path shortestPath : shortestPathList) {
@@ -90,10 +132,10 @@ public class UpdateService {
 
             }
 
-            logger.info(driver.getName());
-            logger.info("Distance Left: " + shortestPath.getDistanceLeft(0));
-            logger.info(shortestPath.getxVel() + " " + shortestPath.getyVel());
-            logger.info("x:" + driver.getLongitude() + " y:" + driver.getLatitude());
+            // logger.info(driver.getName());
+            // logger.info("Distance Left: " + shortestPath.getDistanceLeft(0));
+            // logger.info(shortestPath.getxVel() + " " + shortestPath.getyVel());
+            // logger.info("x:" + driver.getLongitude() + " y:" + driver.getLatitude());
         }
     }
 
