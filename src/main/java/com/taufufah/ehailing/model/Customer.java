@@ -39,7 +39,7 @@ public class Customer {
             Double latitude, Double dest_longitude, Double dest_latitude) {
         this.name = name;
         this.status = Status.PENDING;
-        this.expected_arrival_time = expected_arrival_time;
+        this.expected_arrival_time = LocalDateTime.now();
         this.capacity = capacity;
         this.longitude = longitude;
         this.latitude = latitude;
