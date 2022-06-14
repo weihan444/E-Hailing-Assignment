@@ -16,7 +16,7 @@ public class UpdateController {
         this.updateService = updateService;
     }
 
-    @GetMapping("/distance")
+    @PostMapping("/distance")
     Integer getShortestPathTime(@RequestBody DriverCustomerDto driverCustomer) {
         return updateService.findShortestTime(driverCustomer.getDriverId(), driverCustomer.getCustomerId());
     }

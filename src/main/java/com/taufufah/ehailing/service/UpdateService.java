@@ -78,7 +78,7 @@ public class UpdateService {
                 }
             }
         }
-
+        
         for (Map<String, Object> result : resultsDest) {
             List<Relationship> paths = (List<Relationship>) result.get("d");
             for (Relationship path : paths) {

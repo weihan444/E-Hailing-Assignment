@@ -1,6 +1,7 @@
 package com.taufufah.ehailing;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -107,11 +108,11 @@ public class EhailingApplication {
             vertexRepository.connectVertex(118, 134, 126, 134);
             vertexRepository.connectVertex(126, 134, 130, 131);
 
-            Driver d1 = new Driver("Ali", 4, 23.0, 10.0);
-            Driver d2 = new Driver("Bii", 4, 30.0, 15.0);
-            Customer c1 = new Customer("Abu", LocalDateTime.now(), 4, 10.0, 10.0, 16.0,
+            Driver d1 = new Driver("Ali", 4, 67.0, 144.0);
+            Driver d2 = new Driver("Bii", 4, 136.0, 106.0);
+            Customer c1 = new Customer("Abu", LocalTime.now(), 4, 10.0, 10.0, 16.0,
                     10.0);
-            Customer c2 = new Customer("Jack", LocalDateTime.now(), 4, 50.0, 32.0, 10.0,
+            Customer c2 = new Customer("Jack", LocalTime.now(), 4, 50.0, 32.0, 10.0,
                     30.0);
             Destination dest1 = new Destination(c1.getDest_longitude(),
                     c1.getDest_latitude());

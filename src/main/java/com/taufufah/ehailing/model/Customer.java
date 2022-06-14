@@ -1,6 +1,7 @@
 package com.taufufah.ehailing.model;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
@@ -17,7 +18,7 @@ public class Customer {
 
     private Status status;
 
-    private LocalDateTime expected_arrival_time;
+    private LocalTime expected_arrival_time;
 
     private Integer capacity;
 
@@ -35,11 +36,11 @@ public class Customer {
     @Relationship(type = "GOING_TO")
     private Destination destination;
 
-    public Customer(String name, LocalDateTime expected_arrival_time, Integer capacity, Double longitude,
+    public Customer(String name, LocalTime expected_arrival_time, Integer capacity, Double longitude,
             Double latitude, Double dest_longitude, Double dest_latitude) {
         this.name = name;
         this.status = Status.PENDING;
-        this.expected_arrival_time = LocalDateTime.now();
+        this.expected_arrival_time = expected_arrival_time;
         this.capacity = capacity;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -79,11 +80,11 @@ public class Customer {
         this.status = status;
     }
 
-    public LocalDateTime getExpected_arrival_time() {
+    public LocalTime getExpected_arrival_time() {
         return expected_arrival_time;
     }
 
-    public void setExpected_arrival_time(LocalDateTime expected_arrival_time) {
+    public void setExpected_arrival_time(LocalTime expected_arrival_time) {
         this.expected_arrival_time = expected_arrival_time;
     }
 
