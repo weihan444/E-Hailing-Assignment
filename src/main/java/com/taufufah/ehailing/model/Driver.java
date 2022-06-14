@@ -59,7 +59,7 @@ public class Driver {
         this.capacity = capacity;
     }
 
-    public void setLatitidue(Double latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 

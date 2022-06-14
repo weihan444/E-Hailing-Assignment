@@ -10,6 +10,7 @@ import com.taufufah.ehailing.model.Vertex;
 import com.taufufah.ehailing.repository.CustomerRepository;
 import com.taufufah.ehailing.repository.DriverRepository;
 import com.taufufah.ehailing.repository.VertexRepository;
+import com.taufufah.ehailing.service.UpdateService;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -26,16 +28,21 @@ public class DriverController {
     private final DriverRepository driverRepository;
     private final CustomerRepository customerRepository;
     private final VertexRepository vertexRepository;
+    private final UpdateService updateService;
 
     public DriverController(DriverRepository driverRepository, VertexRepository vertexRepository,
-            CustomerRepository customerRepository) {
+            CustomerRepository customerRepository, UpdateService updateService) {
         this.driverRepository = driverRepository;
         this.vertexRepository = vertexRepository;
         this.customerRepository = customerRepository;
+        this.updateService = updateService;
     }
 
     @GetMapping("/drivers")
-    List<Driver> getAllDrivers() {
+    List<Driver> getAllDrivers(@RequestParam(value = "name", required = false) String name) {
+        if (name != null) {
+            return driverRepository.findOneByName(name);
+        }
         return driverRepository.findAll();
     }
 
@@ -67,7 +74,7 @@ public class DriverController {
         return driverRepository.updateDriverStatus(id, driver.getStatus());
     }
 
-    @PutMapping("/drivers/{driverId}/fetch/{customerId}")
+    @PostMapping("/drivers/{driverId}/fetch/{customerId}")
     Driver fetchCustomer(@PathVariable Long driverId, @PathVariable Long customerId) {
         Driver driver = driverRepository.findById(driverId).orElseThrow(() -> new DriverNotFoundException(driverId));
         Customer customer = customerRepository.findById(customerId)
@@ -78,7 +85,9 @@ public class DriverController {
         }
 
         driverRepository.deleteFetching(driverId);
-        return driverRepository.fetchCustomer(driverId, customerId);
+        Driver responseDriver = driverRepository.fetchCustomer(driverId, customerId);
+        updateService.findShortestPath(driverId, customerId);
+        return responseDriver;
     }
 
     @DeleteMapping("/drivers/{id}")

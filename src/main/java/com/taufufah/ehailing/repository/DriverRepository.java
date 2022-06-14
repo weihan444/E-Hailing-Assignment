@@ -12,6 +12,9 @@ public interface DriverRepository extends Neo4jRepository<Driver, Long> {
     // @Query("MATCH (driver:Driver) WHERE driver.status = $status RETURN driver")
     List<Driver> findAllByStatus(Status status);
 
+    // @Query("MATCH (d:Driver) WHERE d.name =~ '.*$name.*' RETURN d")
+    List<Driver> findOneByName(String name);
+
     @Query("MATCH (d:Driver) MATCH (v:Vertex) WHERE id(d) = $driverId AND id(v) = $vertexId CREATE (d)-[:CONNECTED_VERTEX {distance: point.distance(point({x:d.longitude, y:d.latitude}), point({x:v.longitude, y:v.latitude}))}]->(v) RETURN d")
     Driver connectToClosestVertex(Long driverId, Long vertexId);
 

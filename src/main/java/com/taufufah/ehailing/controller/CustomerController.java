@@ -80,6 +80,8 @@ public class CustomerController {
 
     @DeleteMapping("/customers/{id}")
     void deleteCustomer(@PathVariable Long id) {
+        Customer customer = customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException(id));
         customerRepository.deleteById(id);
+        destinationRepository.deleteById(customer.getDestination().getId());
     }
 }
