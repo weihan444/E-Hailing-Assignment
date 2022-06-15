@@ -86,6 +86,8 @@ public class DriverController {
 
         driverRepository.deleteFetching(driverId);
         Driver responseDriver = driverRepository.fetchCustomer(driverId, customerId);
+        driverRepository.updateDriverStatus(driverId, Status.NOT_AVAILABLE);
+        customerRepository.updateCustomerStatus(customerId, Status.WAITING);
         updateService.findShortestPath(driverId, customerId);
         return responseDriver;
     }

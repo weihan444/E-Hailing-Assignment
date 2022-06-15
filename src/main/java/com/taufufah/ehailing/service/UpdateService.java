@@ -78,7 +78,7 @@ public class UpdateService {
                 }
             }
         }
-        
+
         for (Map<String, Object> result : resultsDest) {
             List<Relationship> paths = (List<Relationship>) result.get("d");
             for (Relationship path : paths) {
@@ -111,7 +111,7 @@ public class UpdateService {
                 shortestPath.decreaseDistance(0, 5.0, driver);
             } else if (shortestPath.getPathList().size() == 0) {
                 shortestPathList.remove(shortestPath);
-                if (driver.getCustomer().getStatus().equals(Status.PENDING)) {
+                if (driver.getCustomer().getStatus().equals(Status.WAITING)) {
                     driverRepository.updateDriverLocation(driverId,
                             driver.getCustomer().getLongitude(),
                             driver.getCustomer().getLatitude());
