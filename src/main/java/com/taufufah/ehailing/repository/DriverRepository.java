@@ -33,6 +33,9 @@ public interface DriverRepository extends Neo4jRepository<Driver, Long> {
     @Query("MATCH (d:Driver)-[r:CONNECTED_VERTEX]->() WHERE id(d) = $driverId DELETE r RETURN d")
     Driver deleteConnectedVertex(Long driverId);
 
-    @Query("MATCH (n:Driver)-[r:FETCHING]->(m) WHERE id(m) = $customerId return n LIMIT 1")
+    @Query("MATCH (d:Driver)-[r:FETCHING]->(m) WHERE id(m) = $customerId return d LIMIT 1")
     Driver findDriverByCustomer(Long customerId);
+
+    @Query("MATCH (d:Driver) WHERE id(d) = $driverId SET d.rating = d.rating + $rating SET d.ratingCount = d.ratingCount + 1 RETURN d")
+    Driver addRating(Long driverId, Integer rating);
 }

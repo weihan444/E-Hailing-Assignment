@@ -21,6 +21,10 @@ public class Driver {
 
     private Double latitude;
 
+    private Integer rating;
+
+    private Integer ratingCount;
+
     @Relationship(type = "FETCHING")
     private Customer customer;
 
@@ -33,6 +37,8 @@ public class Driver {
         this.capacity = capacity;
         this.longitude = longitude;
         this.latitude = latitude;
+        this.rating = 0;
+        this.ratingCount = 0;
     }
 
     public Long getId() {
@@ -93,5 +99,21 @@ public class Driver {
 
     public Integer getCapacity() {
         return capacity;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+
+    public Integer getRatingCount() {
+        return ratingCount;
+    }
+
+    public void setRatingCount(Integer ratingCount) {
+        this.ratingCount = ratingCount;
     }
 }

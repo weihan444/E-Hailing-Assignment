@@ -74,6 +74,11 @@ public class DriverController {
         return driverRepository.updateDriverStatus(id, driver.getStatus());
     }
 
+    @PutMapping("/drivers/{id}/rate")
+    Driver addRating(@RequestBody Driver driver, @PathVariable Long id) {
+        return driverRepository.addRating(id, driver.getRating());
+    }
+
     @PostMapping("/drivers/{driverId}/fetch/{customerId}")
     Driver fetchCustomer(@PathVariable Long driverId, @PathVariable Long customerId) {
         Driver driver = driverRepository.findById(driverId).orElseThrow(() -> new DriverNotFoundException(driverId));
