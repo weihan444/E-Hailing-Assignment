@@ -76,9 +76,9 @@ public class UpdateService {
                     distance -= 5;
                     time++;
                 }
+                time++;
             }
         }
-
         for (Map<String, Object> result : resultsDest) {
             List<Relationship> paths = (List<Relationship>) result.get("d");
             for (Relationship path : paths) {
@@ -87,9 +87,9 @@ public class UpdateService {
                     distance -= 5;
                     time++;
                 }
+                time++;
             }
         }
-
         return time;
     }
 
@@ -132,10 +132,10 @@ public class UpdateService {
 
             }
 
-            // logger.info(driver.getName());
-            // logger.info("Distance Left: " + shortestPath.getDistanceLeft(0));
-            // logger.info(shortestPath.getxVel() + " " + shortestPath.getyVel());
-            // logger.info("x:" + driver.getLongitude() + " y:" + driver.getLatitude());
+            logger.info(driver.getName());
+            logger.info("Distance Left: " + shortestPath.getDistanceLeft(0));
+            logger.info(shortestPath.getxVel() + " " + shortestPath.getyVel());
+            logger.info("x:" + driver.getLongitude() + " y:" + driver.getLatitude());
         }
     }
 
