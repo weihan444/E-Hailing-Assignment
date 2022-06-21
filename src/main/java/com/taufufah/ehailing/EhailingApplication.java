@@ -46,70 +46,70 @@ public class EhailingApplication {
             driverRepository.deleteAll();
             customerRepository.deleteAll();
             destinationRepository.deleteAll();
-            //old map
-//            vertexRepository.save(new Vertex(72, 130));
-//            vertexRepository.save(new Vertex(71, 124));
-//            vertexRepository.save(new Vertex(82, 113));
-//            vertexRepository.save(new Vertex(93, 105));
-//            vertexRepository.save(new Vertex(95, 102));
-//            vertexRepository.save(new Vertex(105, 102));
-//            vertexRepository.save(new Vertex(110, 105));
-//            vertexRepository.save(new Vertex(122, 106));
-//            vertexRepository.save(new Vertex(121, 114));
-//            vertexRepository.save(new Vertex(121, 119));
-//
-//            vertexRepository.save(new Vertex(76, 131));
-//            vertexRepository.save(new Vertex(77, 126));
-//            vertexRepository.save(new Vertex(85, 117));
-//            vertexRepository.save(new Vertex(77, 135));
-//            vertexRepository.save(new Vertex(82, 138));
-//            vertexRepository.save(new Vertex(83, 141));
-//            vertexRepository.save(new Vertex(97, 116));
-//            vertexRepository.save(new Vertex(108, 121));
-//            vertexRepository.save(new Vertex(119, 126));
-//            vertexRepository.save(new Vertex(123, 128));
-//            vertexRepository.save(new Vertex(128, 130));
-//            vertexRepository.save(new Vertex(130, 131));
-//            vertexRepository.save(new Vertex(92, 141));
-//            vertexRepository.save(new Vertex(102, 139));
-//            vertexRepository.save(new Vertex(111, 136));
-//            vertexRepository.save(new Vertex(118, 134));
-//            vertexRepository.save(new Vertex(126, 134));
-//
-//            vertexRepository.connectVertex(76, 131, 72, 130);
-//            vertexRepository.connectVertex(72, 130, 71, 124);
-//            vertexRepository.connectVertex(71, 124, 82, 113);
-//            vertexRepository.connectVertex(82, 113, 93, 105);
-//            vertexRepository.connectVertex(93, 105, 95, 102);
-//            vertexRepository.connectVertex(95, 102, 105, 102);
-//            vertexRepository.connectVertex(105, 102, 110, 105);
-//            vertexRepository.connectVertex(110, 105, 122, 106);
-//            vertexRepository.connectVertex(122, 106, 121, 114);
-//            vertexRepository.connectVertex(121, 114, 121, 119);
-//            vertexRepository.connectVertex(121, 119, 119, 126);
-//
-//            vertexRepository.connectVertex(76, 131, 77, 126);
-//            vertexRepository.connectVertex(77, 126, 85, 117);
-//            vertexRepository.connectVertex(85, 117, 97, 116);
-//            vertexRepository.connectVertex(97, 116, 108, 121);
-//            vertexRepository.connectVertex(108, 121, 119, 126);
-//
-//            vertexRepository.connectVertex(76, 131, 77, 135);
-//            vertexRepository.connectVertex(77, 135, 82, 138);
-//            vertexRepository.connectVertex(82, 138, 83, 141);
-//
-//            vertexRepository.connectVertex(119, 126, 123, 128);
-//            vertexRepository.connectVertex(123, 128, 128, 130);
-//            vertexRepository.connectVertex(128, 130, 130, 131);
-//
-//            vertexRepository.connectVertex(83, 141, 92, 141);
-//            vertexRepository.connectVertex(92, 141, 102, 139);
-//            vertexRepository.connectVertex(102, 139, 111, 136);
-//            vertexRepository.connectVertex(111, 136, 118, 134);
-//            vertexRepository.connectVertex(118, 134, 126, 134);
-//            vertexRepository.connectVertex(126, 134, 130, 131);
+            // old map
+            // vertexRepository.save(new Vertex(72, 130));
+            // vertexRepository.save(new Vertex(71, 124));
+            // vertexRepository.save(new Vertex(82, 113));
+            // vertexRepository.save(new Vertex(93, 105));
+            // vertexRepository.save(new Vertex(95, 102));
+            // vertexRepository.save(new Vertex(105, 102));
+            // vertexRepository.save(new Vertex(110, 105));
+            // vertexRepository.save(new Vertex(122, 106));
+            // vertexRepository.save(new Vertex(121, 114));
+            // vertexRepository.save(new Vertex(121, 119));
+            //
+            // vertexRepository.save(new Vertex(76, 131));
+            // vertexRepository.save(new Vertex(77, 126));
+            // vertexRepository.save(new Vertex(85, 117));
+            // vertexRepository.save(new Vertex(77, 135));
+            // vertexRepository.save(new Vertex(82, 138));
+            // vertexRepository.save(new Vertex(83, 141));
+            // vertexRepository.save(new Vertex(97, 116));
+            // vertexRepository.save(new Vertex(108, 121));
+            // vertexRepository.save(new Vertex(119, 126));
+            // vertexRepository.save(new Vertex(123, 128));
+            // vertexRepository.save(new Vertex(128, 130));
+            // vertexRepository.save(new Vertex(130, 131));
+            // vertexRepository.save(new Vertex(92, 141));
+            // vertexRepository.save(new Vertex(102, 139));
+            // vertexRepository.save(new Vertex(111, 136));
+            // vertexRepository.save(new Vertex(118, 134));
+            // vertexRepository.save(new Vertex(126, 134));
+            //
+            // vertexRepository.connectVertex(76, 131, 72, 130);
+            // vertexRepository.connectVertex(72, 130, 71, 124);
+            // vertexRepository.connectVertex(71, 124, 82, 113);
+            // vertexRepository.connectVertex(82, 113, 93, 105);
+            // vertexRepository.connectVertex(93, 105, 95, 102);
+            // vertexRepository.connectVertex(95, 102, 105, 102);
+            // vertexRepository.connectVertex(105, 102, 110, 105);
+            // vertexRepository.connectVertex(110, 105, 122, 106);
+            // vertexRepository.connectVertex(122, 106, 121, 114);
+            // vertexRepository.connectVertex(121, 114, 121, 119);
+            // vertexRepository.connectVertex(121, 119, 119, 126);
+            //
+            // vertexRepository.connectVertex(76, 131, 77, 126);
+            // vertexRepository.connectVertex(77, 126, 85, 117);
+            // vertexRepository.connectVertex(85, 117, 97, 116);
+            // vertexRepository.connectVertex(97, 116, 108, 121);
+            // vertexRepository.connectVertex(108, 121, 119, 126);
+            //
+            // vertexRepository.connectVertex(76, 131, 77, 135);
+            // vertexRepository.connectVertex(77, 135, 82, 138);
+            // vertexRepository.connectVertex(82, 138, 83, 141);
+            //
+            // vertexRepository.connectVertex(119, 126, 123, 128);
+            // vertexRepository.connectVertex(123, 128, 128, 130);
+            // vertexRepository.connectVertex(128, 130, 130, 131);
+            //
+            // vertexRepository.connectVertex(83, 141, 92, 141);
+            // vertexRepository.connectVertex(92, 141, 102, 139);
+            // vertexRepository.connectVertex(102, 139, 111, 136);
+            // vertexRepository.connectVertex(111, 136, 118, 134);
+            // vertexRepository.connectVertex(118, 134, 126, 134);
+            // vertexRepository.connectVertex(126, 134, 130, 131);
 
-            //new map
+            // new map
             vertexRepository.save(new Vertex(1, 266));
             vertexRepository.save(new Vertex(13, 265));
             vertexRepository.save(new Vertex(37, 255));
@@ -118,9 +118,9 @@ public class EhailingApplication {
             vertexRepository.save(new Vertex(71, 236));
             vertexRepository.save(new Vertex(77, 226));
             vertexRepository.save(new Vertex(91, 255));
-            vertexRepository.save(new Vertex(103, 232)); //junction 1
+            vertexRepository.save(new Vertex(103, 232)); // junction 1
 
-            vertexRepository.save(new Vertex(114, 220)); //to porchini
+            vertexRepository.save(new Vertex(114, 220)); // to porchini
             vertexRepository.save(new Vertex(116, 214));
             vertexRepository.save(new Vertex(127, 208));
             vertexRepository.save(new Vertex(132, 204));
@@ -138,14 +138,14 @@ public class EhailingApplication {
             vertexRepository.save(new Vertex(170, 32));
             vertexRepository.save(new Vertex(148, 19));
             vertexRepository.save(new Vertex(128, 12));
-            vertexRepository.save(new Vertex(118, 3)); //end
+            vertexRepository.save(new Vertex(118, 3)); // end
 
-            vertexRepository.save(new Vertex(107, 239)); //to military base
+            vertexRepository.save(new Vertex(107, 239)); // to military base
             vertexRepository.save(new Vertex(108, 249));
             vertexRepository.save(new Vertex(113, 256));
-            vertexRepository.save(new Vertex(185, 343)); //junction 2
+            vertexRepository.save(new Vertex(185, 343)); // junction 2
 
-            vertexRepository.save(new Vertex(194, 327)); //junction 2 right
+            vertexRepository.save(new Vertex(194, 327)); // junction 2 right
             vertexRepository.save(new Vertex(199, 318));
             vertexRepository.save(new Vertex(218, 309));
             vertexRepository.save(new Vertex(233, 298));
@@ -170,14 +170,14 @@ public class EhailingApplication {
             vertexRepository.save(new Vertex(426, 338));
             vertexRepository.save(new Vertex(434, 339));
             vertexRepository.save(new Vertex(439, 336));
-            vertexRepository.save(new Vertex(447, 336)); //end
+            vertexRepository.save(new Vertex(447, 336)); // end
 
-            vertexRepository.save(new Vertex(199, 368)); //junction 2 down
-            vertexRepository.save(new Vertex(202, 386)); //junction 3
+            vertexRepository.save(new Vertex(199, 368)); // junction 2 down
+            vertexRepository.save(new Vertex(202, 386)); // junction 3
 
-            vertexRepository.save(new Vertex(204, 440)); //junction 3 down + junction 4
+            vertexRepository.save(new Vertex(204, 440)); // junction 3 down + junction 4
 
-            vertexRepository.save(new Vertex(197, 387)); //junction 3 left
+            vertexRepository.save(new Vertex(197, 387)); // junction 3 left
             vertexRepository.save(new Vertex(190, 397));
             vertexRepository.save(new Vertex(179, 407));
             vertexRepository.save(new Vertex(166, 415));
@@ -224,9 +224,9 @@ public class EhailingApplication {
             vertexRepository.save(new Vertex(537, 336));
             vertexRepository.save(new Vertex(521, 340));
             vertexRepository.save(new Vertex(510, 344));
-            vertexRepository.save(new Vertex(484, 344)); //junction 5
+            vertexRepository.save(new Vertex(484, 344)); // junction 5
 
-            vertexRepository.save(new Vertex(209, 438)); //junction 4 right
+            vertexRepository.save(new Vertex(209, 438)); // junction 4 right
             vertexRepository.save(new Vertex(238, 415));
             vertexRepository.save(new Vertex(245, 411));
             vertexRepository.save(new Vertex(249, 407));
@@ -243,9 +243,9 @@ public class EhailingApplication {
             vertexRepository.save(new Vertex(390, 421));
             vertexRepository.save(new Vertex(410, 400));
             vertexRepository.save(new Vertex(455, 353));
-            vertexRepository.save(new Vertex(469, 343)); //junction 5 (484,343) <- added
+            vertexRepository.save(new Vertex(469, 343)); // junction 5 (484,343) <- added
 
-            vertexRepository.save(new Vertex(204, 470)); //junction 4 down
+            vertexRepository.save(new Vertex(204, 470)); // junction 4 down
             vertexRepository.save(new Vertex(208, 476));
             vertexRepository.save(new Vertex(412, 476));
             vertexRepository.save(new Vertex(435, 472));
@@ -256,14 +256,14 @@ public class EhailingApplication {
             vertexRepository.save(new Vertex(522, 418));
             vertexRepository.save(new Vertex(521, 402));
             vertexRepository.save(new Vertex(508, 370));
-            vertexRepository.save(new Vertex(492, 358)); //junction 5 (484, 343) <- added
+            vertexRepository.save(new Vertex(492, 358)); // junction 5 (484, 343) <- added
 
-            vertexRepository.save(new Vertex(482, 318)); //junction 5 up
+            vertexRepository.save(new Vertex(482, 318)); // junction 5 up
             vertexRepository.save(new Vertex(483, 203));
             vertexRepository.save(new Vertex(491, 194));
-            vertexRepository.save(new Vertex(500, 182)); //junction 6
+            vertexRepository.save(new Vertex(500, 182)); // junction 6
 
-            vertexRepository.save(new Vertex(485, 175)); //junction 6 left
+            vertexRepository.save(new Vertex(485, 175)); // junction 6 left
             vertexRepository.save(new Vertex(478, 177));
             vertexRepository.save(new Vertex(459, 168));
             vertexRepository.save(new Vertex(453, 156));
@@ -289,31 +289,31 @@ public class EhailingApplication {
             vertexRepository.save(new Vertex(218, 135));
             vertexRepository.save(new Vertex(201, 128));
             vertexRepository.save(new Vertex(186, 133));
-            vertexRepository.save(new Vertex(170, 134)); //end
+            vertexRepository.save(new Vertex(170, 134)); // end
 
-            vertexRepository.save(new Vertex(508, 173)); //junction 6 up
+            vertexRepository.save(new Vertex(508, 173)); // junction 6 up
             vertexRepository.save(new Vertex(516, 167));
-            vertexRepository.save(new Vertex(536, 134)); //junction 7
+            vertexRepository.save(new Vertex(536, 134)); // junction 7
 
-            vertexRepository.save(new Vertex(537, 123)); //junction 7 up
+            vertexRepository.save(new Vertex(537, 123)); // junction 7 up
             vertexRepository.save(new Vertex(532, 111));
             vertexRepository.save(new Vertex(502, 41));
             vertexRepository.save(new Vertex(489, 17));
-            vertexRepository.save(new Vertex(489, 1)); //end
+            vertexRepository.save(new Vertex(489, 1)); // end
 
-            vertexRepository.save(new Vertex(552, 140)); //junction 7 right
+            vertexRepository.save(new Vertex(552, 140)); // junction 7 right
             vertexRepository.save(new Vertex(558, 145));
             vertexRepository.save(new Vertex(580, 152));
             vertexRepository.save(new Vertex(592, 154));
             vertexRepository.save(new Vertex(603, 159));
             vertexRepository.save(new Vertex(611, 159));
-            vertexRepository.save(new Vertex(621, 154)); //junction 8
+            vertexRepository.save(new Vertex(621, 154)); // junction 8
 
-            vertexRepository.save(new Vertex(644, 158)); //junction 8 right
+            vertexRepository.save(new Vertex(644, 158)); // junction 8 right
             vertexRepository.save(new Vertex(648, 168));
-            vertexRepository.save(new Vertex(674, 195)); ///end
+            vertexRepository.save(new Vertex(674, 195)); /// end
 
-            vertexRepository.save(new Vertex(615, 147)); //junction 8 up
+            vertexRepository.save(new Vertex(615, 147)); // junction 8 up
             vertexRepository.save(new Vertex(615, 137));
             vertexRepository.save(new Vertex(619, 132));
             vertexRepository.save(new Vertex(622, 123));
@@ -324,20 +324,17 @@ public class EhailingApplication {
             vertexRepository.save(new Vertex(649, 128));
             vertexRepository.save(new Vertex(661, 125));
             vertexRepository.save(new Vertex(664, 119));
-            vertexRepository.save(new Vertex(674, 110)); //end
+            vertexRepository.save(new Vertex(674, 110)); // end
 
-
-
-
-            vertexRepository.connectVertex(1, 266, 13, 265); //start from left
+            vertexRepository.connectVertex(1, 266, 13, 265); // start from left
             vertexRepository.connectVertex(13, 265, 37, 255);
             vertexRepository.connectVertex(37, 255, 44, 248);
             vertexRepository.connectVertex(44, 248, 63, 242);
             vertexRepository.connectVertex(63, 242, 71, 236);
             vertexRepository.connectVertex(71, 236, 91, 255);
-            vertexRepository.connectVertex(91, 255, 103, 232); //junction 1
+            vertexRepository.connectVertex(91, 255, 103, 232); // junction 1
 
-            vertexRepository.connectVertex(103, 232, 114, 220); //to porchini
+            vertexRepository.connectVertex(103, 232, 114, 220); // to porchini
             vertexRepository.connectVertex(114, 220, 116, 214);
             vertexRepository.connectVertex(116, 214, 127, 208);
             vertexRepository.connectVertex(127, 208, 132, 204);
@@ -355,14 +352,14 @@ public class EhailingApplication {
             vertexRepository.connectVertex(187, 46, 170, 32);
             vertexRepository.connectVertex(170, 32, 148, 19);
             vertexRepository.connectVertex(148, 19, 128, 12);
-            vertexRepository.connectVertex(128, 12, 118, 3); //end
+            vertexRepository.connectVertex(128, 12, 118, 3); // end
 
-            vertexRepository.connectVertex(103, 232, 107, 239); //to military base
+            vertexRepository.connectVertex(103, 232, 107, 239); // to military base
             vertexRepository.connectVertex(107, 239, 108, 249);
             vertexRepository.connectVertex(108, 249, 113, 256);
-            vertexRepository.connectVertex(113, 256, 185, 343); //junction 2
+            vertexRepository.connectVertex(113, 256, 185, 343); // junction 2
 
-            vertexRepository.connectVertex(185, 343, 194, 327); //junction 2 right
+            vertexRepository.connectVertex(185, 343, 194, 327); // junction 2 right
             vertexRepository.connectVertex(194, 327, 199, 318);
             vertexRepository.connectVertex(199, 318, 218, 309);
             vertexRepository.connectVertex(218, 309, 233, 298);
@@ -387,14 +384,14 @@ public class EhailingApplication {
             vertexRepository.connectVertex(423, 336, 426, 338);
             vertexRepository.connectVertex(426, 338, 434, 339);
             vertexRepository.connectVertex(434, 339, 439, 336);
-            vertexRepository.connectVertex(439, 336, 447, 336); //end
+            vertexRepository.connectVertex(439, 336, 447, 336); // end
 
-            vertexRepository.connectVertex(185, 343, 199, 368); //junction 2 down
-            vertexRepository.connectVertex(199, 368, 202, 386); //junction 3
+            vertexRepository.connectVertex(185, 343, 199, 368); // junction 2 down
+            vertexRepository.connectVertex(199, 368, 202, 386); // junction 3
 
-            vertexRepository.connectVertex(202, 386, 204, 440); //junction 3 down + junction 4
+            vertexRepository.connectVertex(202, 386, 204, 440); // junction 3 down + junction 4
 
-            vertexRepository.connectVertex(202, 386, 197, 387); //junction 3 left
+            vertexRepository.connectVertex(202, 386, 197, 387); // junction 3 left
             vertexRepository.connectVertex(197, 387, 190, 397);
             vertexRepository.connectVertex(190, 397, 179, 407);
             vertexRepository.connectVertex(179, 407, 166, 415);
@@ -443,7 +440,7 @@ public class EhailingApplication {
             vertexRepository.connectVertex(521, 340, 510, 344);
             vertexRepository.connectVertex(510, 344, 484, 344); // junction 5
 
-            vertexRepository.connectVertex(204, 440, 209, 438); //junction 4 right
+            vertexRepository.connectVertex(204, 440, 209, 438); // junction 4 right
             vertexRepository.connectVertex(209, 438, 238, 415);
             vertexRepository.connectVertex(238, 415, 245, 411);
             vertexRepository.connectVertex(245, 411, 249, 407);
@@ -461,9 +458,9 @@ public class EhailingApplication {
             vertexRepository.connectVertex(390, 421, 410, 400);
             vertexRepository.connectVertex(410, 400, 455, 353);
             vertexRepository.connectVertex(455, 353, 469, 343);
-            vertexRepository.connectVertex(469, 343, 484,343); //junction 5
+            vertexRepository.connectVertex(469, 343, 484, 343); // junction 5
 
-            vertexRepository.connectVertex(204, 440, 204, 470); //junction 4 down
+            vertexRepository.connectVertex(204, 440, 204, 470); // junction 4 down
             vertexRepository.connectVertex(204, 470, 208, 476);
             vertexRepository.connectVertex(208, 476, 412, 476);
             vertexRepository.connectVertex(412, 476, 435, 472);
@@ -475,14 +472,14 @@ public class EhailingApplication {
             vertexRepository.connectVertex(522, 418, 521, 402);
             vertexRepository.connectVertex(521, 402, 508, 370);
             vertexRepository.connectVertex(508, 370, 492, 358);
-            vertexRepository.connectVertex(492, 358, 484, 343); //junction 5
+            vertexRepository.connectVertex(492, 358, 484, 343); // junction 5
 
-            vertexRepository.connectVertex(484, 343, 482, 318); //junction 5 up
+            vertexRepository.connectVertex(484, 343, 482, 318); // junction 5 up
             vertexRepository.connectVertex(482, 318, 483, 203);
             vertexRepository.connectVertex(483, 203, 491, 194);
-            vertexRepository.connectVertex(491, 194, 500, 182); //junction 6
+            vertexRepository.connectVertex(491, 194, 500, 182); // junction 6
 
-            vertexRepository.connectVertex(500, 182, 485, 175); //junction 6 left
+            vertexRepository.connectVertex(500, 182, 485, 175); // junction 6 left
             vertexRepository.connectVertex(485, 175, 478, 177);
             vertexRepository.connectVertex(478, 177, 459, 168);
             vertexRepository.connectVertex(459, 168, 453, 156);
@@ -508,31 +505,31 @@ public class EhailingApplication {
             vertexRepository.connectVertex(242, 137, 218, 135);
             vertexRepository.connectVertex(218, 135, 201, 128);
             vertexRepository.connectVertex(201, 128, 186, 133);
-            vertexRepository.connectVertex(186, 133, 170, 134); //end
+            vertexRepository.connectVertex(186, 133, 170, 134); // end
 
-            vertexRepository.connectVertex(500, 182, 508, 173); //junction 6 up
+            vertexRepository.connectVertex(500, 182, 508, 173); // junction 6 up
             vertexRepository.connectVertex(508, 173, 516, 167);
-            vertexRepository.connectVertex(516, 167, 536, 134); //junction 7
+            vertexRepository.connectVertex(516, 167, 536, 134); // junction 7
 
-            vertexRepository.connectVertex(536, 134, 537, 123); //junction 7 up
+            vertexRepository.connectVertex(536, 134, 537, 123); // junction 7 up
             vertexRepository.connectVertex(537, 123, 532, 111);
             vertexRepository.connectVertex(532, 111, 502, 41);
             vertexRepository.connectVertex(502, 41, 489, 17);
             vertexRepository.connectVertex(489, 17, 489, 1); // end
 
-            vertexRepository.connectVertex(536, 134, 552, 140); //junction 7 right
+            vertexRepository.connectVertex(536, 134, 552, 140); // junction 7 right
             vertexRepository.connectVertex(552, 140, 558, 145);
             vertexRepository.connectVertex(558, 145, 580, 152);
             vertexRepository.connectVertex(580, 152, 592, 154);
             vertexRepository.connectVertex(592, 154, 603, 159);
             vertexRepository.connectVertex(603, 159, 611, 159);
-            vertexRepository.connectVertex(611, 159, 621, 154); //junction 8
+            vertexRepository.connectVertex(611, 159, 621, 154); // junction 8
 
-            vertexRepository.connectVertex(621, 154, 644, 158); //junction 8 right
+            vertexRepository.connectVertex(621, 154, 644, 158); // junction 8 right
             vertexRepository.connectVertex(644, 158, 648, 168);
-            vertexRepository.connectVertex(648, 168, 674, 195); //end
+            vertexRepository.connectVertex(648, 168, 674, 195); // end
 
-            vertexRepository.connectVertex(621, 154, 615, 147); //junction 8 up
+            vertexRepository.connectVertex(621, 154, 615, 147); // junction 8 up
             vertexRepository.connectVertex(615, 147, 615, 137);
             vertexRepository.connectVertex(615, 137, 619, 132);
             vertexRepository.connectVertex(619, 132, 622, 123);
@@ -545,8 +542,8 @@ public class EhailingApplication {
             vertexRepository.connectVertex(661, 125, 664, 119);
             vertexRepository.connectVertex(664, 119, 674, 110);
 
-            Driver d1 = new Driver("Ali", 4, 67.0, 144.0);
-            Driver d2 = new Driver("Bii", 4, 136.0, 106.0);
+            Driver d1 = new Driver("Ali", 4, 303.0, 364.0);
+            Driver d2 = new Driver("Bii", 4, 400.0, 450.0);
             // Customer c1 = new Customer("Abu", LocalTime.now(), 4, 10.0, 10.0, 16.0,
             // 10.0);
             // Customer c2 = new Customer("Jack", LocalTime.now(), 4, 50.0, 32.0, 10.0,

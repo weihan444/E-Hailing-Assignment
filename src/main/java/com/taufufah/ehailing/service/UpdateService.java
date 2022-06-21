@@ -31,7 +31,7 @@ public class UpdateService {
     private final CustomerRepository customerRepository;
     private final DestinationRepository destinationRepository;
     private List<Path> shortestPathList = new ArrayList<>();
-    private final Logger logger = LoggerFactory.getLogger(UpdateService.class);
+    // private final Logger logger = LoggerFactory.getLogger(UpdateService.class);
 
     public UpdateService(Neo4jClient neo4jClient, DriverRepository driverRepository, VertexRepository vertexRepository,
             CustomerRepository customerRepository, DestinationRepository destinationRepository) {
@@ -132,10 +132,10 @@ public class UpdateService {
 
             }
 
-            logger.info(driver.getName());
-            logger.info("Distance Left: " + shortestPath.getDistanceLeft(0));
-            logger.info(shortestPath.getxVel() + " " + shortestPath.getyVel());
-            logger.info("x:" + driver.getLongitude() + " y:" + driver.getLatitude());
+            // logger.info(driver.getName());
+            // logger.info("Distance Left: " + shortestPath.getDistanceLeft(0));
+            // logger.info(shortestPath.getxVel() + " " + shortestPath.getyVel());
+            // logger.info("x:" + driver.getLongitude() + " y:" + driver.getLatitude());
         }
     }
 
