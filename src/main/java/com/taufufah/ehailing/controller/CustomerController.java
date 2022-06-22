@@ -13,6 +13,8 @@ import com.taufufah.ehailing.repository.VertexRepository;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -60,6 +62,26 @@ public class CustomerController {
 
         Long destId = destinationRepository.save(destination).getId();
         return customerRepository.updateDestination(id, destId);
+    }
+
+    @PatchMapping("/customers/{id}")
+    Customer updateCustomer(@RequestBody Customer newCustomer, @PathVariable Long id) {
+        Customer oldCustomer = customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException(id));
+        destinationRepository.deleteById(oldCustomer.getDestination().getId());
+        customerRepository.deleteById(id);
+
+        Long customerId = customerRepository.save(newCustomer).getId();
+        Vertex closestToCustomer = vertexRepository.findClosestNodes(newCustomer.getLongitude(),
+                newCustomer.getLatitude());
+
+        Destination destination = new Destination(newCustomer.getDest_longitude(), newCustomer.getDest_latitude());
+        Long destId = destinationRepository.save(destination).getId();
+        Vertex closestToDestination = vertexRepository.findClosestNodes(destination.getLongitude(),
+                destination.getLatitude());
+
+        destinationRepository.connectToClosestVertex(destId, closestToDestination.getId());
+        customerRepository.updateDestination(customerId, destId);
+        return customerRepository.connectToClosestVertex(customerId, closestToCustomer.getId());
     }
 
     @PostMapping("/customers")
